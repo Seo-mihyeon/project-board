@@ -1,3 +1,4 @@
+
 #server setting
 server:
   port: 8070
@@ -30,15 +31,6 @@ spring:
       hibernate.format_sql: true
       hibernate.default_batch_fetch_size: 100
   h2.console.enabled: true
-  sql.init.mode: always
----
-
-spring:
-  config.activate.on-profile: testdb
-#  datasource:
-#    url: jdbcLh2:mem:board;mode=mysql
-#    driver-class-name: org.h2.Driver
-#  sql.init.mode: always
-#  test.database.replace: none
-
----
+  sql:
+    init:
+      mode: always
