@@ -6,13 +6,14 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Getter
 @ToString
 @Table(indexes = {
         @Index(columnList = "content"),
-        @Index(columnList = "createAt"),
+        @Index(columnList = "createdAt"),
         @Index(columnList = "createdBy")
 })
 @Entity
@@ -22,9 +23,9 @@ public class ArticleComment {
     @Setter @ManyToOne(optional = false) private Article article;    //게시글(ID)
     @Setter @Column(nullable = false, length = 500) private String content; //내용
 
-    private LocalDate createAt; //생성일시
+    private LocalDateTime createdAt; //생성일시
     private String createdBy;   //생성자
-    private LocalDate modifiedAt;   //수정일시
+    private LocalDateTime modifiedAt;   //수정일시
     private String modifiedBy;  //수정자
 
     protected ArticleComment(){

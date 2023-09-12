@@ -8,18 +8,23 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @ToString
 @Table(indexes = {
         @Index(columnList = "title"),
         @Index(columnList = "hashtag"),
-        @Index(columnList = "createAt"),
+        @Index(columnList = "createdAt"),
         @Index(columnList = "createdBy")
 })
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 public class Article {
 
@@ -33,12 +38,16 @@ public class Article {
 
     @Setter private String hashtag; //해시태그
 
-    //자동으로 데이터 값이 생성된다. ( 자동으로 생성되기 위해서는 JpaConfig 설정이 이루어져야한다. )
-    @CreatedDate @Column(nullable = false) private LocalDate createAt; //생성일시
-    @CreatedBy @Column(nullable = false, length = 100) private String createdBy;   //생성자
-    @LastModifiedDate @Column(nullable = false) private LocalDate modifiedAt;   //수정일시
-    @LastModifiedBy @Column(nullable = false, length = 100) private String modifiedBy;  //수정자
+    @ToString.Exclude   // ToString이 ArticleCommet에 까지 가서 적용 되기 때문에 한번 끊어준다.
+    @OrderBy("id")  //정렬기준 id
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL) // 양방향 바인드
+    private final Set<ArticleComment> articleCommentSet = new LinkedHashSet<>();
 
+    //자동으로 데이터 값이 생성된다. ( 자동으로 생성되기 위해서는 JpaConfig 설정이 이루어져야한다. )
+    @CreatedDate @Column(nullable = false) private LocalDateTime createdAt; //생성일시
+    @CreatedBy @Column(nullable = false, length = 100) private String createdBy;   //생성자
+    @LastModifiedDate @Column(nullable = false) private LocalDateTime modifiedAt;   //수정일시
+    @LastModifiedBy @Column(nullable = false, length = 100) private String modifiedBy;  //수정자
 
     protected Article(){}
 
@@ -48,7 +57,7 @@ public class Article {
         this.hashtag = hashtag;
     }
 
-    public Article of(String title, String content, String hashtag) {
+    public static Article of(String title, String content, String hashtag) {
         return new Article(title, content, hashtag);
     }
 
