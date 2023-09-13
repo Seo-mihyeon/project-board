@@ -24,9 +24,8 @@ import java.util.Set;
         @Index(columnList = "createdAt"),
         @Index(columnList = "createdBy")
 })
-@EntityListeners(AuditingEntityListener.class)
 @Entity
-public class Article {
+public class Article extends AuditingFields{
 
     // 자동으로 번호 부여를 하기 때문에 따로 setter를 설정 하지 않는다.
     @Id
@@ -43,11 +42,6 @@ public class Article {
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL) // 양방향 바인드
     private final Set<ArticleComment> articleCommentSet = new LinkedHashSet<>();
 
-    //자동으로 데이터 값이 생성된다. ( 자동으로 생성되기 위해서는 JpaConfig 설정이 이루어져야한다. )
-    @CreatedDate @Column(nullable = false) private LocalDateTime createdAt; //생성일시
-    @CreatedBy @Column(nullable = false, length = 100) private String createdBy;   //생성자
-    @LastModifiedDate @Column(nullable = false) private LocalDateTime modifiedAt;   //수정일시
-    @LastModifiedBy @Column(nullable = false, length = 100) private String modifiedBy;  //수정자
 
     protected Article(){}
 
