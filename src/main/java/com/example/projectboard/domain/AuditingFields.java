@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @ToString
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
-public class AuditingFields {
+public abstract class AuditingFields {
     // 엔티티들의 공통적인 부분을 따로 추출할 수 있다.
     // 자동으로 데이터 값이 생성된다. ( 자동으로 생성되기 위해서는 JpaConfig 설정이 이루어져야한다. )
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
