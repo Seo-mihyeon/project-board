@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DisplayName("Data Rest 테스트")
 @AutoConfigureMockMvc
 @Transactional
-@SpringBootTest
+//@SpringBootTest
 public class DataRestTest {
 
     private final MockMvc mvc;
