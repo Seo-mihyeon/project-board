@@ -1,3 +1,9 @@
+-- 테스트 계정
+-- TODO: 테스트용이지만 비밀번호가 노출된 데이터 세팅. 개선하는 것이 좋을 지 고민해 보자.
+insert into user_account (user_id, user_password, nickname, email, memo, created_at, created_by, modified_at, modified_by) values
+    ('uno', 'asdf1234', 'Uno', 'uno@mail.com', 'I am Uno.', now(), 'uno', now(), 'uno')
+;
+
 insert into article (title, content, hashtag, created_by, modified_by, created_at, modified_at) values ('Under Siege 2: Dark Territory', 'Action', 'Goldenrod', 'Osbourne', 'Kimberley', '2022-05-13 05:12:12', '2023-08-09 17:13:52');
 insert into article (title, content, hashtag, created_by, modified_by, created_at, modified_at) values ('Machine, The', 'Sci-Fi|Thriller', 'Aquamarine', 'Henrik', 'Coralyn', '2022-03-12 03:45:45', '2023-07-11 16:11:50');
 insert into article (title, content, hashtag, created_by, modified_by, created_at, modified_at) values ('Space Jam', 'Adventure|Animation|Children|Comedy|Fantasy|Sci-Fi', null, 'Gaylor', 'Thibaud', '2022-07-09 20:20:54', '2023-02-03 16:57:56');
